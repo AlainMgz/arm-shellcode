@@ -1,19 +1,16 @@
-.data
+.global _start      // Provide starting address to the linker
+.align 4            // Proper alignement
 
-msg:
-    .ascii  "Hello, Aarch64!\n"
-len = . - msg
+// Syscall description in xnu/bsd/kern/syscalls.master
+_start: mov x0, #1         // 1 = stdout
+        adr x1, helloworld // load the address of helloworld into x1
+        mov x2, #16        // string length into x2
+        mov x16, #4        // write syscall number is 4, register to write syscall code is 16 -> xnu/osfmk/arm64/proc_reg.h#L2212
+        svc #0x80          // 0x80000000 from xnu/osfmk/arm64/proc_reg.h#L2210
 
-.text
+// Now exit the program
+        mov x0, #0         // return 0-like
+        mov x16, #1        // exit syscall code is 1
+        svc #0x80
 
-.globl _start
-_start:
-    mov x0, #1
-    ldr x1, =msg
-    ldr x2, =len
-    mov w8, #64
-    svc #0
-
-    mov x0, #0
-    mov w8, #93
-    svc #0
+helloworld: .ascii "Hello, Aarch64!\n"
