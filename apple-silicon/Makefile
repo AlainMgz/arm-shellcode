@@ -1,3 +1,5 @@
+TARGET ?= hello
+
 ifneq ($(V),1)
 	Q		:= @
 	NULL	:= 2>/dev/null
@@ -8,13 +10,12 @@ CC ?= clang
 SRC_DIR = .
 OBJ_DIR = obj
 
-OBJS = $(OBJ_DIR)/hello.o
-OBJS = $(OBJ_DIR)/shell.o
+OBJS  = $(OBJ_DIR)/$(TARGET).o
 
 CFLAGS  = # -g Debugging
 LDFLAGS = -e _start # tell that the start is not main, but _start
 
-BINARY = hello.bin shell.bin
+BINARY = $(TARGET).bin
 
 .SECONDEXPANSION:
 .SECONDARY:
@@ -30,6 +31,6 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.s
 	$(Q)$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
-	$(Q)rm -rf $(OBJ_DIR) $(BINARY)
+	$(Q)rm -rf $(OBJ_DIR) hello.bin shell.bin
 
 .PHONY: clean
