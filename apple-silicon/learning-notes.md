@@ -7,5 +7,8 @@ The main official source of information is the open source part of [XNU](https:/
 
 ### `lldb` debugger
 The most commonly used tool to debug executables on macOS and iOS is `lldb`, here are some useful commands:
-- Set a breakpoint at an address: `breakpoint set --address 0x12345678`
+- Set a breakpoint at an address: `breakpoint set --address 0x12345678`. The program needs to be run once before this works (symbols load only then, even if compiled with `-g`)
 - Get register info: `register read`
+
+### MacOS Assembly
+A few interesting notes about writing assembly for ARM MacOS
