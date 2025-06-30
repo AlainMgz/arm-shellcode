@@ -6,7 +6,7 @@ The Makefile assumes compilation on a Apple M computer, if that's not the case y
 
 This is the toolchain used:
 ```bash
-$ gcc -v
+$ clang -v
 Apple clang version 17.0.0 (clang-1700.0.13.5)
 Target: arm64-apple-darwin24.5.0
 Thread model: posix
